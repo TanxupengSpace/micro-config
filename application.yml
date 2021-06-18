@@ -1,0 +1,37 @@
+spring:
+  profile: dev
+  application:
+    name: micro-provider-dept   # 作为统一标记
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.23.133:3306/yootk_8001?useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: fl2X_39c
+    dbcp2:
+      min-idle: 5
+      initial-size: 3
+      max-total: 5
+      max-wait-millis: 100
+  messages:
+    basename: i18n/Message    # 定义要读取的资源文件名称
+
+
+server:
+  port: 8001
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml  # MyBatis的核心配置文件
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml    
+eureka:
+  instance:
+    instance-id: dept-8001.com
+    ip-address: dept-8001.com
+    hostname: dept-8001.com
+  client:
+    lease-expiration-duration-in-seconds: 1 #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
+    lease-renewal-interval-in-seconds: 1 #服务刷新时间配置，每隔这个时间会主动心跳一次
+    service-url:
+      defaultZone: http://admin:hello@eureka-7001.com:7001/eureka,
+                   http://admin:hello@eureka-7002.com:7002/eureka,
+                   http://admin:hello@eureka-7003.com:7003/eureka
